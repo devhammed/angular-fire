@@ -1,0 +1,10 @@
+.items {
+  list-style: none;
+}
+
+.items__item {
+  background-color: lightgreen;
+  color: #666;
+  margin-bottom: 20px;
+  padding: 20px;
+}
