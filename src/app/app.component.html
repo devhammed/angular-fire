@@ -1,22 +1,16 @@
 <ul class="items">
-  <li
-    id="items__item--{{ item.id }}"
-    class="items__item"
-    *ngFor="let item of items | async"
-  >
+  <li id="item--{{ item.id }}" class="item" *ngFor="let item of items | async">
     <input
       type="checkbox"
       [checked]="item.completed"
       (click)="toggleCompleted(item)"
     />
-    <input
-      type="text"
-      (keyup)="$event.which === 13 && updateItem()"
-      (input)="onChangeTask($event)"
-      (dblclick)="startEditing(item.id)"
-      [disabled]="editingID !== item.id"
-      [value]="item.name"
-    />
+    <span
+      (dblclick)="startEditing(item)"
+      *ngIf="editingID !== item.id; else editingForm"
+    >
+      {{ item.name }}
+    </span>
   </li>
 </ul>
 <input
@@ -25,3 +19,13 @@
   [(ngModel)]="task"
 />
 <button (click)="addItem()">Add Item</button>
+<ng-template #editingForm>
+  <input
+    type="text"
+    (keyup)="
+      ($event.which === 13 && updateItem()) ||
+        ($event.which === 27 && startEditing())
+    "
+    [(ngModel)]="editingName"
+  />
+</ng-template>

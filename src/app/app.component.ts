@@ -6,7 +6,7 @@ import {
 import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
 
-import { Item } from './models/Item'
+import { Item, ItemWithID } from './models/Item'
 
 @Component({
   selector: 'app-root',
@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
   task: string
   editingID: string
   editingName: string
-  items: Observable<Item[]>
+  items: Observable<ItemWithID[]>
   private collectionName = 'items'
   private itemsCollection: AngularFirestoreCollection<Item>
 
@@ -42,7 +42,6 @@ export class AppComponent implements OnInit {
     }
 
     this.itemsCollection.add({
-      id: this.afs.createId(),
       name: this.task,
       completed: false
     })
@@ -54,19 +53,19 @@ export class AppComponent implements OnInit {
     this.afs.doc<Item>(`${this.collectionName}/${this.editingID}`).update({
       name: this.editingName
     })
-    this.startEditing('')
+    this.startEditing()
   }
 
-  startEditing(id: string) {
-    this.editingID = id
-    this.editingName = ''
+  startEditing(item?: ItemWithID) {
+    this.editingID = item ? item.id : ''
+    this.editingName = item ? item.name : ''
   }
 
   onChangeTask($event: Event) {
     this.editingName = ($event.target as HTMLInputElement).value
   }
 
-  toggleCompleted(item: Item) {
+  toggleCompleted(item: ItemWithID) {
     this.afs.doc<Item>(`${this.collectionName}/${item.id}`).update({
       completed: !item.completed
     })

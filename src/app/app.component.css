@@ -2,7 +2,7 @@
   list-style: none;
 }
 
-.items__item {
+.item {
   background-color: lightgreen;
   color: #666;
   margin-bottom: 20px;

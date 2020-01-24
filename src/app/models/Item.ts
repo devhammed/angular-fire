@@ -1,5 +1,8 @@
 export interface Item {
-  id: string;
-  name: string;
-  completed: boolean;
+  name: string
+  completed: boolean
+}
+
+export interface ItemWithID extends Item {
+  id: string
 }
