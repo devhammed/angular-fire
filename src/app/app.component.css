@@ -1,8 +1,8 @@
-.items {
+.todos {
   list-style: none;
 }
 
-.item {
+.todos__task {
   background-color: lightgreen;
   color: #666;
   margin-bottom: 20px;
