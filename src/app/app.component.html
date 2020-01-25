@@ -2,7 +2,7 @@
   <li
     id="todos__task--{{ task.id }}"
     class="todos__task"
-    [ngClass]="{'todos__task--completed': task.completed}"
+    [ngClass]="{ 'todos__task--completed': task.completed }"
     *ngFor="let task of todos | async"
   >
     <input
@@ -18,8 +18,11 @@
       id="todos__task__input--{{ task.id }}"
       *ngIf="editingID === task.id"
       (keyup)="
-        ($event.which === 13 && updateTodo()) ||
-          ($event.which === 27 && toggleEditing())
+        $event.key === 'Enter'
+          ? updateTodo()
+          : $event.key === 'Escape'
+          ? toggleEditing()
+          : null
       "
       [(ngModel)]="editingName"
     />
@@ -67,7 +70,7 @@
 </ul>
 <input
   type="text"
-  (keyup)="$event.which === 13 && addTodo()"
+  (keyup)="$event.key === 'Enter' && addTodo()"
   [(ngModel)]="task"
 />
 <button (click)="addTodo()">Add Todo</button>
