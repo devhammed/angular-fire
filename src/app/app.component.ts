@@ -6,7 +6,7 @@ import {
 import { Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
 
-import { Item, ItemWithID } from './models/Item'
+import { Task, TaskWithID } from './models/Task'
 
 @Component({
   selector: 'app-root',
@@ -17,26 +17,26 @@ export class AppComponent implements OnInit {
   task: string
   editingID: string
   editingName: string
-  items: Observable<ItemWithID[]>
-  private collectionName = 'items'
-  private itemsCollection: AngularFirestoreCollection<Item>
+  todos: Observable<TaskWithID[]>
+  private collectionName = 'todos'
+  private itemsCollection: AngularFirestoreCollection<Task>
 
   constructor(private afs: AngularFirestore) {}
 
   ngOnInit() {
-    this.itemsCollection = this.afs.collection<Item>(this.collectionName)
-    this.items = this.itemsCollection.snapshotChanges().pipe(
+    this.itemsCollection = this.afs.collection<Task>(this.collectionName)
+    this.todos = this.itemsCollection.snapshotChanges().pipe(
       map(actions =>
         actions.map(action => {
           const id = action.payload.doc.id
-          const data = action.payload.doc.data() as Item
+          const data = action.payload.doc.data() as Task
           return { id, ...data }
         })
       )
     )
   }
 
-  addItem() {
+  addTodo() {
     if (!this.task) {
       return
     }
@@ -49,20 +49,20 @@ export class AppComponent implements OnInit {
     this.task = ''
   }
 
-  updateItem() {
-    this.afs.doc<Item>(`${this.collectionName}/${this.editingID}`).update({
+  updateTodo() {
+    this.afs.doc<Task>(`${this.collectionName}/${this.editingID}`).update({
       name: this.editingName
     })
     this.toggleEditing()
   }
 
-  toggleEditing(item?: ItemWithID) {
+  toggleEditing(item?: TaskWithID) {
     this.editingID = item ? item.id : ''
     this.editingName = item ? item.name : ''
   }
 
-  toggleCompleted(item: ItemWithID) {
-    this.afs.doc<Item>(`${this.collectionName}/${item.id}`).update({
+  toggleCompleted(item: TaskWithID) {
+    this.afs.doc<Task>(`${this.collectionName}/${item.id}`).update({
       completed: !item.completed
     })
   }
