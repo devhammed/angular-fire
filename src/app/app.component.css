@@ -4,12 +4,11 @@
 
 .todos__task {
   background-color: tomato;
-  color: #666;
+  color: #fff;
   margin-bottom: 20px;
   padding: 20px;
 }
 
 .todos__task--completed {
   background-color: green;
-  color: #fff;
 }
