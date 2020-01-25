@@ -1,5 +1,6 @@
 export interface Task {
   name: string
+  createdAt: number
   completed: boolean
 }
 
