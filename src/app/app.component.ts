@@ -24,7 +24,9 @@ export class AppComponent implements OnInit {
   constructor(private afs: AngularFirestore) {}
 
   ngOnInit() {
-    this.todosCollection = this.afs.collection<Task>(this.collectionName)
+    this.todosCollection = this.afs.collection<Task>(this.collectionName, ref =>
+      ref.orderBy('createdAt')
+    )
     this.todos = this.todosCollection.snapshotChanges().pipe(
       map(actions =>
         actions.map(action => {
@@ -43,6 +45,7 @@ export class AppComponent implements OnInit {
 
     this.todosCollection.add({
       name: this.task,
+      createdAt: Date.now(),
       completed: false
     })
 
@@ -50,7 +53,7 @@ export class AppComponent implements OnInit {
   }
 
   updateTodo() {
-    this.afs.doc<Task>(`${this.collectionName}/${this.editingID}`).update({
+    this.updateTask(this.editingID, {
       name: this.editingName
     })
     this.toggleEditing()
@@ -66,8 +69,12 @@ export class AppComponent implements OnInit {
   }
 
   toggleCompleted(item: TaskWithID) {
-    this.afs.doc<Task>(`${this.collectionName}/${item.id}`).update({
+    this.updateTask(item.id, {
       completed: !item.completed
     })
+  }
+
+  private updateTask(id: string, data: Partial<Task>): Promise<void> {
+    return this.afs.doc<Task>(`${this.collectionName}/${id}`).update(data)
   }
 }
