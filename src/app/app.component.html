@@ -1,3 +1,4 @@
+<h1 class="heading">AngularFire</h1>
 <ul class="todos">
   <li
     id="todos__task--{{ task.id }}"
@@ -34,43 +35,50 @@
     >
       {{ task.name }}
     </span>
-    <button
-      id="todos__task__action--save--{{ task.id }}"
-      class="todos__task__action todos__task__action--save"
-      *ngIf="editingID === task.id"
-      (click)="updateTodo()"
-    >
-      Save
-    </button>
-    <button
-      id="todos__task__action--cancel--{{ task.id }}"
-      class="todos__task__action todos__task__action--cancel"
-      *ngIf="editingID === task.id"
-      (click)="toggleEditing()"
-    >
-      Cancel
-    </button>
-    <button
-      id="todos__task__action--edit--{{ task.id }}"
-      class="todos__task__action todos__task__action--edit"
-      *ngIf="editingID !== task.id"
-      (click)="toggleEditing(task)"
-    >
-      Edit
-    </button>
-    <button
-      id="todos__task__action--delete--{{ task.id }}"
-      class="todos__task__action todos__task__action--delete"
-      *ngIf="editingID !== task.id"
-      (click)="deleteTodo(task.id)"
-    >
-      Delete
-    </button>
+    <div class="todos__task__actions">
+      <button
+        id="todos__task__action--save--{{ task.id }}"
+        class="todos__task__action todos__task__action--save"
+        *ngIf="editingID === task.id"
+        (click)="updateTodo()"
+      >
+        Save
+      </button>
+      <button
+        id="todos__task__action--cancel--{{ task.id }}"
+        class="todos__task__action todos__task__action--cancel"
+        *ngIf="editingID === task.id"
+        (click)="toggleEditing()"
+      >
+        Cancel
+      </button>
+      <button
+        id="todos__task__action--edit--{{ task.id }}"
+        class="todos__task__action todos__task__action--edit"
+        *ngIf="editingID !== task.id"
+        (click)="toggleEditing(task)"
+      >
+        Edit
+      </button>
+      <button
+        id="todos__task__action--delete--{{ task.id }}"
+        class="todos__task__action todos__task__action--delete"
+        *ngIf="editingID !== task.id"
+        (click)="deleteTodo(task.id)"
+      >
+        Delete
+      </button>
+    </div>
   </li>
 </ul>
-<input
-  type="text"
-  (keyup)="$event.key === 'Enter' && addTodo()"
-  [(ngModel)]="task"
-/>
-<button (click)="addTodo()">Add Todo</button>
+<section class="todo-form">
+  <input
+    autofocus
+    type="text"
+    placeholder="Enter text here..."
+    class="todo-form__input"
+    (keyup)="$event.key === 'Enter' && addTodo()"
+    [(ngModel)]="task"
+  />
+  <button class="todo-form__add" (click)="addTodo()">Add Todo</button>
+</section>

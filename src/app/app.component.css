@@ -1,14 +1,67 @@
+input,
+button {
+  border: none;
+  border-radius: 5px;
+}
+
+button:focus,
+input:focus {
+  outline: none;
+}
+
+.heading {
+  text-align: center;
+}
+
+.todos,
+.todo-form,
+.heading {
+  display: flex;
+  justify-content: center;
+  max-width: 800px;
+}
+
 .todos {
   list-style: none;
+  flex-direction: column;
 }
 
 .todos__task {
   background-color: tomato;
+  border-radius: 10px;
   color: #fff;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+  min-width: 250px;
   padding: 20px;
+}
+
+.todos__task__actions {
+  float: right;
 }
 
 .todos__task--completed {
   background-color: green;
+}
+
+.todos__task__action,
+.todos__task__input {
+  padding: 5px;
+}
+
+.todos__task__action:not(:last-child),
+.todos__task__input {
+  margin-right: 5px;
+}
+
+.todo-form__input,
+.todo-form__add {
+  padding: 10px;
+}
+
+.todo-form__add {
+  background-color: tomato;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.08);
+  color: #fff;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
 }
