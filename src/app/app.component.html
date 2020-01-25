@@ -2,6 +2,7 @@
   <li
     id="todos__task--{{ task.id }}"
     class="todos__task"
+    [ngClass]="{'todos__task--completed': task.completed}"
     *ngFor="let task of todos | async"
   >
     <input
