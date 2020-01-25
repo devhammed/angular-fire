@@ -53,16 +53,12 @@ export class AppComponent implements OnInit {
     this.afs.doc<Item>(`${this.collectionName}/${this.editingID}`).update({
       name: this.editingName
     })
-    this.startEditing()
+    this.toggleEditing()
   }
 
-  startEditing(item?: ItemWithID) {
+  toggleEditing(item?: ItemWithID) {
     this.editingID = item ? item.id : ''
     this.editingName = item ? item.name : ''
-  }
-
-  onChangeTask($event: Event) {
-    this.editingName = ($event.target as HTMLInputElement).value
   }
 
   toggleCompleted(item: ItemWithID) {

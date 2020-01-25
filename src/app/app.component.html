@@ -6,7 +6,7 @@
       (click)="toggleCompleted(item)"
     />
     <span
-      (dblclick)="startEditing(item)"
+      (dblclick)="toggleEditing(item)"
       *ngIf="editingID !== item.id; else editingForm"
     >
       {{ item.name }}
@@ -24,7 +24,7 @@
     type="text"
     (keyup)="
       ($event.which === 13 && updateItem()) ||
-        ($event.which === 27 && startEditing())
+        ($event.which === 27 && toggleEditing())
     "
     [(ngModel)]="editingName"
   />
