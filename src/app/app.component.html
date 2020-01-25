@@ -30,10 +30,38 @@
     >
       {{ task.name }}
     </span>
-    <button *ngIf="editingID === task.id" (click)="updateTodo()">Save</button>
-    <button *ngIf="editingID === task.id" (click)="toggleEditing()">Cancel</button>
-    <button *ngIf="editingID !== task.id" (click)="toggleEditing(task)">Edit</button>
-    <button  *ngIf="editingID !== task.id" (click)="deleteTodo(task.id)">Delete</button>
+    <button
+      id="todos__task__action--save--{{ task.id }}"
+      class="todos__task__action todos__task__action--save"
+      *ngIf="editingID === task.id"
+      (click)="updateTodo()"
+    >
+      Save
+    </button>
+    <button
+      id="todos__task__action--cancel--{{ task.id }}"
+      class="todos__task__action todos__task__action--cancel"
+      *ngIf="editingID === task.id"
+      (click)="toggleEditing()"
+    >
+      Cancel
+    </button>
+    <button
+      id="todos__task__action--edit--{{ task.id }}"
+      class="todos__task__action todos__task__action--edit"
+      *ngIf="editingID !== task.id"
+      (click)="toggleEditing(task)"
+    >
+      Edit
+    </button>
+    <button
+      id="todos__task__action--delete--{{ task.id }}"
+      class="todos__task__action todos__task__action--delete"
+      *ngIf="editingID !== task.id"
+      (click)="deleteTodo(task.id)"
+    >
+      Delete
+    </button>
   </li>
 </ul>
 <input
