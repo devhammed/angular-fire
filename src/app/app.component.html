@@ -25,6 +25,7 @@
           ? toggleEditing()
           : null
       "
+      [appFocusMe]="editingID === task.id"
       [(ngModel)]="editingName"
     />
     <span
@@ -78,6 +79,7 @@
     placeholder="Enter text here..."
     class="todo-form__input"
     (keyup)="$event.key === 'Enter' && addTodo()"
+    [appFocusMe]="true"
     [(ngModel)]="task"
   />
   <button class="todo-form__add" (click)="addTodo()">Add Todo</button>
