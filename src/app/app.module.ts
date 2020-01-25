@@ -15,7 +15,9 @@ import { AppComponent } from './app.component'
     FormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAnalyticsModule,
-    AngularFirestoreModule
+    AngularFirestoreModule.enablePersistence({
+      synchronizeTabs: true
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
