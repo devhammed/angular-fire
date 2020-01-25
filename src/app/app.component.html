@@ -30,7 +30,10 @@
     >
       {{ task.name }}
     </span>
-    <button (click)="deleteTodo(task.id)">Delete</button>
+    <button *ngIf="editingID === task.id" (click)="updateTodo()">Save</button>
+    <button *ngIf="editingID === task.id" (click)="toggleEditing()">Cancel</button>
+    <button *ngIf="editingID !== task.id" (click)="toggleEditing(task)">Edit</button>
+    <button  *ngIf="editingID !== task.id" (click)="deleteTodo(task.id)">Delete</button>
   </li>
 </ul>
 <input
