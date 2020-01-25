@@ -19,13 +19,13 @@ export class AppComponent implements OnInit {
   editingName: string
   todos: Observable<TaskWithID[]>
   private collectionName = 'todos'
-  private itemsCollection: AngularFirestoreCollection<Task>
+  private todosCollection: AngularFirestoreCollection<Task>
 
   constructor(private afs: AngularFirestore) {}
 
   ngOnInit() {
-    this.itemsCollection = this.afs.collection<Task>(this.collectionName)
-    this.todos = this.itemsCollection.snapshotChanges().pipe(
+    this.todosCollection = this.afs.collection<Task>(this.collectionName)
+    this.todos = this.todosCollection.snapshotChanges().pipe(
       map(actions =>
         actions.map(action => {
           const id = action.payload.doc.id
@@ -41,7 +41,7 @@ export class AppComponent implements OnInit {
       return
     }
 
-    this.itemsCollection.add({
+    this.todosCollection.add({
       name: this.task,
       completed: false
     })
@@ -54,6 +54,10 @@ export class AppComponent implements OnInit {
       name: this.editingName
     })
     this.toggleEditing()
+  }
+
+  deleteTodo(id: string) {
+    this.afs.doc<Task>(`${this.collectionName}/${id}`).delete()
   }
 
   toggleEditing(item?: TaskWithID) {
