@@ -3,8 +3,13 @@
 }
 
 .todos__task {
-  background-color: lightgreen;
+  background-color: tomato;
   color: #666;
   margin-bottom: 20px;
   padding: 20px;
+}
+
+.todos__task--completed {
+  background-color: green;
+  color: #fff;
 }
