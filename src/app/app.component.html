@@ -18,13 +18,8 @@
       class="todos__task__input"
       id="todos__task__input--{{ task.id }}"
       *ngIf="editingID === task.id"
-      (keyup)="
-        $event.key === 'Enter'
-          ? updateTodo()
-          : $event.key === 'Escape'
-          ? toggleEditing()
-          : null
-      "
+      (keyup.enter)="updateTodo()"
+      (keyup.esc)="toggleEditing()"
       [appFocusMe]="editingID === task.id"
       [(ngModel)]="editingName"
     />
